@@ -10,6 +10,7 @@
 
 <body>
     <canvas width="500" height="500" id="canvas"></canvas>
+    <a href="/piechart">Piechart</a>
     <script>
         const data = [16, 68, 20, 30, 54]
 
@@ -17,14 +18,15 @@
         const canvas = document.getElementById('canvas')
         const c = canvas.getContext('2d')
 
-        // draw
-        c.fillStyle = 'gray'
+        // draw bg
+        c.fillStyle = '#dedede'
         c.fillRect(0, 0, 500, 500);
 
+        // draw data
         c.fillStyle = 'blue'
         for (let i = 0; i < data.length; i++) {
             const dp = data[i];
-            c.fillRect(25 + i * 100, 500 - dp * 5 - 30, 50, dp * 5)
+            c.fillRect(40 + i * 100, 460 - dp * 5, 50, dp * 5)
         }
 
         c.fillStyle = "black";
