@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piechart</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <a href="/">Bar Chart</a>
+    <script>
+        // dataset
+        const data = [100, 68, 20, 30, 100]
+        const canvas = document.getElementById('canvas')
+        const c = canvas.getContext('2d')
+        c.fillStyle = "#dedede"
+        c.fillRect(0, 0, 500, 500)
+
+        const colors = ["orange", "green", "blue", "yellow", "teal"];
+        let total = 0
+        for (let i = 0; i < data.length; i++) {
+            total += data[i]
+        }
+
+        let prevAngle = 0
+        for (let i = 0; i < data.length; i++) {
+            const fraction = data[i] / total
+            const angle = prevAngle + fraction * Math.PI * 2
+
+            // c.fillStyle = colors[i]
+
+            // fill with gradient
+            const grad = c.createRadialGradient(250, 250, .5, 250, 250, total / 2);
+            grad.addColorStop(0, "#ffffffaa");
+            grad.addColorStop(1, colors[i]);
+            c.fillStyle = grad;
+
+            c.beginPath()
+            c.moveTo(250, 250)
+            c.arc(250, 250, 200, prevAngle, angle, false) // false means anti-clockwise
+            c.lineTo(250, 250)
+            c.fill()
+
+            c.strokeStyle = "black"
+            c.stroke();
+            prevAngle = angle
+
+            c.fillStyle = "black"
+            c.font = "20pt sans-serif"
+            const text = "Sales data from 2024"
+            const metrics = c.measureText(text)
+            c.fillText(text, 250 - metrics.width / 2, 480)
+        }
+    </script>
+</body>
+
+</html>
